@@ -1,8 +1,9 @@
 ---
 - name: loops
   hosts: localhost
-  
+  become: yes 
   tasks:
     - user: name=gunjan state=present
     - user: name=ibt state=present
     - user: name=hue state=present
+    - user: name=abc state=present
