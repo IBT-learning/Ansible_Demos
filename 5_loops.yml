@@ -1,0 +1,39 @@
+---
+- name: loops
+  hosts: localhost
+  
+  tasks:
+    # - name: Create Users
+    #  user: 
+    #    name: "{{ item }}" 
+    #    state: present
+    #  with_items:
+    #    - joe
+    #    - george
+    #    - ravi
+    #    - mani
+
+    - name: Get from multiple urls
+      debug: var=item
+      with_url:
+        #- "https://site1.com/get-servers"
+        #- "https://site2.com/get-servers"
+        #- "https://site3.com/get-servers"
+         - "https://jsonplaceholder.typicode.com/posts/1"
+         - "https://api.github.com/users/octocat"
+
+    - name: View config files
+      debug: var=item
+      with_file:
+          - "/etc/hosts"
+          - "/etc/resolv.conf"
+
+    - name: Check multiple mongodbs
+      debug: 
+        msg: "DB={{ item.database }} PID={{ item.pid }}"
+      with_mongodb:
+        - database: dev
+          connection_string: "mongodb://dev.mongo/"
+        - database: prod
+          connection_string: "mongodb://prod.mongo/"
+

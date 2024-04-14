@@ -1,0 +1,21 @@
+---
+- name: Demonstrate Filter Plugins
+  hosts: localhost
+  vars:
+    x: 32
+    some_variable: 
+      - item1
+      - item2
+      - item3
+  tasks:
+    - name: Using ternary filter to check if x is 32
+      debug:
+        msg: "passing_positional: {{ (x == 32) | ternary('x is 32', 'x is not 32') }}"
+    
+    - name: Using to_yaml filter with extra named parameters
+      debug:
+        msg: "passing_extra_named_parameters: {{ some_variable | to_yaml(indent=8, width=1337) }}"
+    
+    - name: Using ternary filter with both positional and extra named parameters
+      debug:
+        msg: "passing_both: {{ some_variable | ternary('true value', 'false value', none_val='NULL') }}"

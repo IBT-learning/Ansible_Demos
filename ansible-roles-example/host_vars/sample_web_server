@@ -1,0 +1,26 @@
+php_extensions:
+  - php5-mcrypt
+php5_fpm_pools:
+  - name: my_service
+    prefix: /var
+    user: vagrant
+    group: vagrant
+    socket_listen_owner: nginx
+    socket_listen_group: nginx
+    listen: 127.0.0.1:9001
+    listen_allowed_clients: 127.0.0.1, 192.168.33.100
+    process_max_requests: 500
+    access_log_path: /var/log/php5-fpm-$pool.access.log
+nginx_service_enabled: no
+monit_mail_servers:
+  - localhost port 25
+monit_alert_email_defs:
+  - root@localhost
+  - vagrant@localhost not on { instance, action }
+monit_services:
+  - name: php5-fpm
+    check: check process php5-fpm with pidfile /var/run/php5-fpm.pid
+    lines:
+      - start program = "/usr/sbin/service php5-fpm start"
+      - stop program = "/usr/sbin/service php5-fpm stop"
+      - if failed unixsocket /var/run/php5-fpm.sock then alert

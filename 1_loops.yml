@@ -1,0 +1,13 @@
+---
+- name: loops
+  hosts: localhost
+  
+  tasks:
+    - name: Create Users
+      user: 
+        name: "{{ item }}" 
+        state: present
+      loop: 
+        - gunjan
+        - ibt
+        - hue

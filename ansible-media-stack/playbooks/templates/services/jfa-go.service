@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=Jfa-Go Service
+After=network-online.target jellyfin.service
+Requires=jellyfin.service
+
+[Service]
+User={{ jfago.user }}
+Group={{ jfago.user }}
+ExecStart=/usr/local/bin/jfa-go -data {{ jfago.home }}
+Type=simple
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

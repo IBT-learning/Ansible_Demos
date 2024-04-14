@@ -1,0 +1,9 @@
+---
+- name: Demonstrate Lookup Plugin
+  hosts: localhost
+  tasks:
+    - name: Read data from file using lookup plugin
+      debug:
+        var: file_content
+      vars:
+        file_content: "{{ lookup('file', '/home/ec2-user/ansible_4/ansible-playbooks/LICENSE') }}"

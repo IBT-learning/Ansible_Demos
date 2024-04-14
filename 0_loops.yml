@@ -1,0 +1,8 @@
+---
+- name: loops
+  hosts: localhost
+  
+  tasks:
+    - user: name=gunjan state=present
+    - user: name=ibt state=present
+    - user: name=hue state=present
